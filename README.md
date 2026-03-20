@@ -34,9 +34,9 @@ Key highlights:
 
 ---
 
-## 📝 Sample SQL Queries
+## SQL Queries
 
-### 1️⃣ Monthly and Yearly Sales Performance
+### Monthly and Yearly Sales Performance
 ```sql
 SELECT 
     YEAR(sls_order_dt) AS Year,
@@ -50,7 +50,8 @@ ORDER BY Year, Month_Number;
 
 ## Customer Segmentation by Spending Behavior
 
-```WITH overview AS (
+```
+WITH overview AS (
     SELECT 
         c.cst_id,
         SUM(s.sls_sales) AS total_spending,
