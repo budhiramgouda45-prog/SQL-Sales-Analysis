@@ -1,6 +1,6 @@
 # SQL Sales Analysis Project
 
-## 📊 Project Overview
+##Project Overview
 This SQL project analyzes sales, products, and customer data from a retail business.  
 The goal is to extract insights on sales performance, product performance, and customer behavior to support data-driven decisions.
 
@@ -12,7 +12,7 @@ Key highlights:
 
 ---
 
-## 🗄 Database Structure
+## Database Structure
 
 ### **Customer Table**
 - `cst_id` → Customer ID (Primary Key)  
@@ -50,7 +50,7 @@ ORDER BY Year, Month_Number;
 
 ## Customer Segmentation by Spending Behavior
 
-```
+```sql
 WITH overview AS (
     SELECT 
         c.cst_id,
