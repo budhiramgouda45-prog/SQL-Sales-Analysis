@@ -46,3 +46,36 @@ SELECT
 FROM sales
 GROUP BY YEAR(sls_order_dt), MONTH(sls_order_dt), DATENAME(MONTH, sls_order_dt)
 ORDER BY Year, Month_Number;
+```
+
+## Customer Segmentation by Spending Behavior
+
+```WITH overview AS (
+    SELECT 
+        c.cst_id,
+        SUM(s.sls_sales) AS total_spending,
+        MIN(s.sls_order_dt) AS first_order_date,
+        MAX(s.sls_order_dt) AS last_order_date,
+        DATEDIFF(MONTH, MIN(s.sls_order_dt), MAX(s.sls_order_dt)) AS lifespan
+    FROM customer c
+    LEFT JOIN sales s ON c.cst_id = s.sls_cust_id
+    GROUP BY c.cst_id
+),
+cust_details AS (
+    SELECT
+        cst_id,
+        total_spending,
+        first_order_date,
+        last_order_date,
+        lifespan,
+        CASE
+            WHEN lifespan >= 12 AND total_spending > 5000 THEN 'VIP'
+            WHEN lifespan >= 12 AND total_spending <= 5000 THEN 'Regular'
+            ELSE 'New'
+        END AS customer_segment
+    FROM overview
+)
+SELECT *
+FROM cust_details
+ORDER BY customer_segment, total_spending DESC;
+```
